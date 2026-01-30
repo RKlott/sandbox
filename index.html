@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Sandbox</title>
+  </head>
+  <body>
+    <main>
+      <section class="playlist">
+        <div id="song-container"></div>
+        <span id="2nd-modifier"></span>
+        <div id="song-adding-container">
+          <h2>Ajouter un nouveau son</h2>
+          <input type="text" id="song-input" placeholder="Entrez le nom du son ici...">
+          <button id="input-button">Ajouter</button>
+        </div>
+      </section>
+
+      <section class="chatbot">
+        <div class="userArea">
+          <input
+            type="text"
+            name="text"
+            id="text"
+            placeholder="Ecrivez votre message ici..."
+          />
+          <button id="sendingButton">Envoyer</button>
+        </div>
+
+        <div class="chatbotArea">
+          <span id="title">Réponse du ChatBot</span>
+          <div class="responseArea">
+            <span id="botResponse">Bonjour, vous allez bien ?</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="exo3">
+        <h2>Répétition de nombres</h2>
+        <div id="rep-container"></div>
+      </section>
+
+      <section class="random-game">
+        <h2>Jeu plus grand plus petit</h2>
+        <div class="rg-container">
+          <span>Quel est le chiffre aléatoire ? </span>
+          <span id="rg-response"></span>
+          <span id="rg-try"></span>
+          <div>
+            <input
+              type="text"
+              name=""
+              id="rg-input"
+              placeholder="Entrez une valeur.."
+            />
+            <button id="rg-btn">Essayer !</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

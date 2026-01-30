@@ -1,0 +1,59 @@
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+main section {
+  width: 500px;
+  padding: 10px;
+}
+main .playlist {
+  background-color: rgba(115, 187, 255, 0.637);
+  border-radius: 1rem;
+  display: flex;
+  align-self: center;
+  margin-top: 1rem;
+  flex-direction: column;
+  align-items: center;
+}
+main .chatbot {
+  background-color: bisque;
+}
+main .chatbot .userArea {
+  display: flex;
+  flex-direction: column;
+}
+main .chatbot .chatbotArea {
+  margin-top: 5rem;
+}
+main .chatbot .chatbotArea #title {
+  text-transform: capitalize;
+  text-decoration: underline;
+  font-weight: bolder;
+}
+main .chatbot .chatbotArea .responseArea {
+  padding-top: 5px;
+  padding-left: 10px;
+  height: 70px;
+  background-color: rgb(255, 175, 76);
+}
+main .exo3 {
+  background-color: rgb(198, 235, 143);
+}
+main .exo3 #rep-container {
+  background-color: rgb(173, 231, 86);
+  display: flex;
+  padding: 3px;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+main .random-game {
+  background-color: rgb(218, 218, 218);
+}
+main .random-game .rg-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 3px;
+  background-color: rgb(189, 189, 189);
+}/*# sourceMappingURL=style.css.map */

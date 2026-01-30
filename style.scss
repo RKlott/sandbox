@@ -1,0 +1,71 @@
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  section {
+    width: 500px;
+    padding: 10px;
+  }
+
+  .playlist{
+    background-color: rgba(115, 187, 255, 0.637);
+    border-radius: 1rem;
+    display: flex;
+    align-self: center;
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  .chatbot {
+    background-color: bisque;
+
+    .userArea {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chatbotArea {
+      margin-top: 5rem;
+
+      #title {
+        text-transform: capitalize;
+        text-decoration: underline;
+        font-weight: bolder;
+      }
+
+      .responseArea {
+        padding-top: 5px;
+        padding-left: 10px;
+        height: 70px;
+        background-color: rgb(255, 175, 76);
+      }
+    }
+  }
+
+  .exo3 {
+    background-color: rgb(198, 235, 143);
+
+    #rep-container{
+        background-color: rgb(173, 231, 86);
+        display: flex;
+        padding: 3px;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+  }
+
+  .random-game{
+    background-color: rgb(218, 218, 218);
+
+    .rg-container{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 3px;
+        background-color: rgb(189, 189, 189);
+    }
+  }
+}
