@@ -5,7 +5,7 @@ const userQuestion = document.getElementById("text");
 
 const botResponse = document.getElementById("botResponse");
 
-//Playlist
+//////////////////////////////////Playlist//////////////////////////////////
 let playlist = [];
 const songContainer = document.getElementById("song-container");
 let songModifier = document.getElementById("song-modifier");
@@ -54,7 +54,12 @@ inputButton.addEventListener("click", () => {
   playlistActivation();
 });
 
+//////////////////////////////////Playlist//////////////////////////////////
+
 //TODO: un bouton qui rappelle la fonction playlistActivation pour "rafraîchir" en cas d'ajout
+//TODO: faire la logique du 'bouton' supprimer
+//TODO: faire la logique du 'bouton' modifier
+//TODO: faire en sorte que le navigateur garde en mémoire le contenu de la liste (localStorage ?)
 
 button.addEventListener("click", () => {
   let managedMsg = userQuestion.value;
