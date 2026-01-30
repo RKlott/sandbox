@@ -1,0 +1,11 @@
+créer une playlist: tableau contenant plusieurs types de chansons 
+
+afficher la playlist
+
+possibilité d'ajouter un morceau ->
+
+si la longueur est supérieur à 10, supprimer le premier (avec slice)
+
+remplacer le deuxième morceau spécifiquement
+
+afficher la longueur de la liste + afficher spécifiquement le dernier morceau (afficher toutes les chansons de la liste)

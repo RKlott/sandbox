@@ -16,28 +16,46 @@ let warningTitle = document.createElement("h3");
 
 function playlistActivation() {
   if (playlist.length !== 0) {
-    for (let a of playlist) { //pour chaque element de l'array playlist
+    songContainer.innerHTML = "";
+    for (let a of playlist) {
+      //pour chaque element de l'array playlist
       let songDiv = document.createElement("div"); //creation d'une div qui contiendra le son parcouru
       let songSpan = document.createElement("span"); //creation d'un span qui contiendra le nom du son
       let songPosition = playlist.indexOf(a) + 1; //récupération de la position du son dans la playlist avec +1 pour que ça commence visuellement à 1
       songSpan.innerText = songPosition + " " + a; //définition du contenu du span avec du texte comprenant la position du son et son nom
       songSpan.className = "song"; //ajout d'une classe "song" au son pour le css
-      let songIndex = playlist.indexOf(a)+"-song"; //creation d'une variable dynamique avec la position du son actuel
+      let songIndex = playlist.indexOf(a) + "-song"; //creation d'une variable dynamique avec la position du son actuel
       songDiv.setAttribute("id", songIndex); //ajout d'un id dynamique au conteneur du son actuel grace a la variable ci-dessus qui sera utile pour target avec précision le son lors de la gestion de modification/suppression
       let songDeleteIcon = document.createElement("i"); //creation d'une icone de poubelle
-      songDeleteIcon.className = "fa-solid fa-trash deleteIcon"; //ajout de la classe qui définira le type d'icone
+      songDeleteIcon.className = "fa-solid fa-trash deleteIcon " + songIndex; //ajout de la classe qui définira le type d'icone
+
+      songDeleteIcon.addEventListener("click", () => {
+        songDiv.remove(); //suppression de la div parente
+        
+        const index = playlist.indexOf(a); //suppression de la playlist ici
+        if (index > -1) {
+            playlist.splice(index, 1);
+        }
+        
+        
+        playlistActivation(); //rafraichissement de la liste
+        console.log("Supprimé : " + a);
+    });
 
       let songModifyIcon = document.createElement("i"); //creation d'une icone de modification
       songModifyIcon.className = "fa-solid fa-pen"; //ajout de la classe qui définira le type d'icone
 
-      if(playlist.indexOf(a) === 1){ //si on est au deuxième élément de la playlist
+      if (playlist.indexOf(a) === 1) {
+        //si on est au deuxième élément de la playlist
         songDiv.appendChild(songModifyIcon); //on défini l'icone de modif, qui est uniquement possible pour le deuxième élément
       }
 
       songDiv.append(songSpan, songDeleteIcon); //ici on ajoute nos éléments standard (le son et une icone de suppression)
       songContainer.appendChild(songDiv); //on ajoute notre conteneur custom au conteneur principal déjà présent dans l'html
       console.log(playlist);
-      
+
+
+
     }
     warningTitle.innerText = ""; //si la playlist n'est pas vide, on efface le contenu du title de warning
   } else {
@@ -50,16 +68,28 @@ playlistActivation();
 
 inputButton.addEventListener("click", () => {
   let songName = songInput.value;
-  playlist.push(songName);
-  playlistActivation();
+  if (!playlist.includes(songName)) {
+    playlist.push(songName);
+    playlistActivation();
+  } else {
+    alert("La playlist contient déjà ce son !");
+    return;
+  }
 });
 
 //////////////////////////////////Playlist//////////////////////////////////
 
 //TODO: un bouton qui rappelle la fonction playlistActivation pour "rafraîchir" en cas d'ajout
 //TODO: faire la logique du 'bouton' supprimer
+/* Au clique sur une icone portant la classe deleteIcon
+ *for of loop sur la playlist
+ *récupérer chaque l'id correspondant à l'indexOf+"-song"
+ *le supprimer du conteneur principal
+ */
 //TODO: faire la logique du 'bouton' modifier
 //TODO: faire en sorte que le navigateur garde en mémoire le contenu de la liste (localStorage ?)
+
+//TODO: modifier le comportement du texte de warning, peut-être le définir dans le dom et lui ajouter/retirer une class visibility hidden en fonction de s'il y a des elements ou non dans le tableau
 
 button.addEventListener("click", () => {
   let managedMsg = userQuestion.value;
