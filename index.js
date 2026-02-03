@@ -14,6 +14,42 @@ let songInput = document.getElementById("song-input");
 
 let warningTitle = document.createElement("h3");
 
+class Etudiant {
+  constructor(age, nom) {
+    this.age = age;
+    this.nom = nom;
+  }
+
+  getAge() {
+    return this.age;
+  }
+
+  setAge(age) {
+    this.age = age;
+  }
+
+  getNom() {
+    return this.nom;
+  }
+
+  setNom(nom) {
+    this.nom = nom;
+  }
+}
+
+let etudiant1 = new Etudiant(21, "Etudiant1");
+let etudiant2 = new Etudiant(24, "Etudiant2");
+
+const studentButton = document.getElementById("etudiant");
+
+etudiant1.setAge(26);
+
+studentButton.addEventListener("click", () => {
+  alert(etudiant1.getNom() + ", age: " + etudiant1.getAge());
+});
+
+/////////////////////////////////////
+
 function playlistActivation() {
   if (playlist.length !== 0) {
     songContainer.innerHTML = "";
@@ -31,16 +67,15 @@ function playlistActivation() {
 
       songDeleteIcon.addEventListener("click", () => {
         songDiv.remove(); //suppression de la div parente
-        
+
         const index = playlist.indexOf(a); //suppression de la playlist ici
         if (index > -1) {
-            playlist.splice(index, 1);
+          playlist.splice(index, 1);
         }
-        
-        
+
         playlistActivation(); //rafraichissement de la liste
         console.log("Supprimé : " + a);
-    });
+      });
 
       let songModifyIcon = document.createElement("i"); //creation d'une icone de modification
       songModifyIcon.className = "fa-solid fa-pen"; //ajout de la classe qui définira le type d'icone
@@ -53,9 +88,6 @@ function playlistActivation() {
       songDiv.append(songSpan, songDeleteIcon); //ici on ajoute nos éléments standard (le son et une icone de suppression)
       songContainer.appendChild(songDiv); //on ajoute notre conteneur custom au conteneur principal déjà présent dans l'html
       console.log(playlist);
-
-
-
     }
     warningTitle.innerText = ""; //si la playlist n'est pas vide, on efface le contenu du title de warning
   } else {
