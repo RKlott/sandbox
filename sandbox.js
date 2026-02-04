@@ -1,3 +1,27 @@
+//? Horloge
+let heures = document.getElementById("heures");
+let minutes = document.getElementById("minutes");
+let secondes = document.getElementById("secondes");
+
+function horloge(){
+    let date = new Date();
+    heures.innerHTML = `${String(date.getHours()).padStart(2, 0)} :`;
+    minutes.innerHTML = `${String(date.getMinutes()).padStart(2, 0)} :`;
+    secondes.innerHTML = `${String(date.getSeconds()).padStart(2, 0)}`;
+    setTimeout(horloge, 1000);
+}
+
+horloge();
+
+
+
+
+
+
+
+
+
+
 let firstNumber = document.getElementById("premier-nombre");
 let secondNumber = document.getElementById("deuxieme-nombre");
 const myButton = document.getElementById("mon-bouton");
