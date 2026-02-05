@@ -1,3 +1,54 @@
+let feuRouge = document.getElementById("rouge");
+let feuOrange = document.getElementById("orange");
+let feuVert = document.getElementById("vert");
+let tricolore = document.getElementById("tricolor");
+let feu = document.getElementsByClassName("feu");
+
+function feuTricolore() {
+  const delay = 1000;
+
+  setTimeout(() => {
+    Array.from(feu).forEach((element, index) => {
+      setTimeout(
+        () => {
+          element.classList.add("brightness");
+        },
+        index * 2 * delay); //? calcul dans le temps pour créer un décalage progressif de l'ajout de la class brightness en fonction de la position dans l'array
+
+      //ajout de la classe calculé
+      /* index 0: 0 x 2 = 0s
+       *  index 1: 1 x 2 = 2s
+       *  index 2: 2 x 2 = 4s
+       */
+
+      setTimeout(
+        () => {
+          element.classList.remove("brightness");
+        },
+        index * 2 * delay + delay);
+
+      //retrait de la classe calculé
+      /* index 0: 0 x 2 = 0s + 1(delay) = 1s
+       *  index 1: 1 x 2 = 2s + 1(delay) = 3s
+       *  index 2: 2 x 2 = 4s + 1(delay) = 5s
+       */
+    });
+
+    feuTricolore();
+  }, 6000); //On loop à la fin à 6 secondes pour recommencer un cycle dynamique
+}
+
+feuTricolore();
+
+function pairOrNot($arg) {
+  return Number($arg) % 2 === 0;
+}
+
+function isPalindrome(str) {
+  const reversed = String(str).split("").reverse().join("");
+  return str === reversed;
+}
+
 //? Horloge
 let heures = document.getElementById("heures");
 let minutes = document.getElementById("minutes");
@@ -20,8 +71,6 @@ function horloge() {
 
   let compressedTime = currentHour + ":" + currentMinute;
 
-  
-
   heures.innerHTML = `${currentHour} :`;
   minutes.innerHTML = `${currentMinute} :`;
   secondes.innerHTML = `${String(date.getSeconds()).padStart(2, 0)}`;
@@ -29,9 +78,7 @@ function horloge() {
   for (let i = 0; i < alarmArray.length; i++) {
     let element = alarmArray[i];
 
-    
     if (compressedTime == element) {
-
       let divToDelete = document.getElementById(element);
 
       if (alarmsContainer.contains(divToDelete)) {
@@ -39,7 +86,6 @@ function horloge() {
         alarmsContainer.removeChild(divToDelete);
         alarmArray.splice(i, 1);
         console.log(alarmArray);
-        
       }
     }
   }
@@ -52,6 +98,7 @@ horloge(); //? Initialisation de l'horloge
 alarmButton.addEventListener("click", () => {
   let alarmTime = alarmInput.value; //? Récupération de l'heure définie par l'utilisateur
   if (alarmTime) {
+    //TODO: bonus: rajouter une vérif pour éviter la duplication d'alarmes
     let alarmElement = document.createElement("div"); //? Création d'un élément div pour afficher l'alarme
     alarmElement.setAttribute("id", alarmTime);
     alarmElement.innerHTML = `Alarme définie pour ${alarmTime}`; //? Contenu de l'alarme

@@ -3,12 +3,41 @@ main {
   flex-direction: column;
   gap: 3rem;
 
+  .brightness{
+    filter: brightness(2);
+  }
+
+  .tricolore {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    span {
+      padding: 50px;
+      width: 1px;
+      border-radius: 20rem;
+      border: 1px solid black;
+    }
+
+    #rouge {
+      background-color: red;
+    }
+
+    #orange {
+      background-color: orange;
+    }
+
+    #vert {
+      background-color: green;
+    }
+  }
+
   section {
     width: 500px;
     padding: 10px;
   }
 
-  .playlist{
+  .playlist {
     background-color: rgba(115, 187, 255, 0.637);
     border-radius: 1rem;
     display: flex;
@@ -16,7 +45,6 @@ main {
     margin-top: 1rem;
     flex-direction: column;
     align-items: center;
-
   }
 
   .chatbot {
@@ -48,24 +76,24 @@ main {
   .exo3 {
     background-color: rgb(198, 235, 143);
 
-    #rep-container{
-        background-color: rgb(173, 231, 86);
-        display: flex;
-        padding: 3px;
-        gap: 5px;
-        flex-wrap: wrap;
+    #rep-container {
+      background-color: rgb(173, 231, 86);
+      display: flex;
+      padding: 3px;
+      gap: 5px;
+      flex-wrap: wrap;
     }
   }
 
-  .random-game{
+  .random-game {
     background-color: rgb(218, 218, 218);
 
-    .rg-container{
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        padding: 3px;
-        background-color: rgb(189, 189, 189);
+    .rg-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 3px;
+      background-color: rgb(189, 189, 189);
     }
   }
 }
