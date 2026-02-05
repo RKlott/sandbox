@@ -3,6 +3,23 @@ main {
   flex-direction: column;
   gap: 3rem;
 
+  .modal{
+    background-color: rgb(255, 144, 144);
+    display: none;
+    flex-direction: column;
+    .closeModal{
+      align-self: flex-end;
+      font-size: 38px;
+    }
+
+    .modal-container{
+      background-color: rgb(226, 226, 226);
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+
   .brightness{
     filter: brightness(2);
   }
@@ -20,7 +37,7 @@ main {
     }
 
     #rouge {
-      background-color: red;
+      background-color: rgb(192, 2, 2);
     }
 
     #orange {

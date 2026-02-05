@@ -1,42 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Sandbox page-1</title>
-</head>
-<body>
+  </head>
+  <body>
     <main>
-        <section class="tricolore" id="tricolore">
-            <span id="rouge" class="feu"></span>
-            <span id="orange" class="feu"></span>
-            <span id="vert" class="feu"></span>
-        </section>
+      <button id="modalButton">Ouvrir ma modale</button>
+      <section id="myModal" class="modal">
+        <span id="closeModal" class="closeModal">&times;</span>
+        <div class="modal-container">
+          <h1>Titre de ma modale</h1>
+          <p>Description de ma modale</p>
+        </div>
+      </section>
 
+      <section class="tricolore" id="tricolore">
+        <span id="rouge" class="feu"></span>
+        <span id="orange" class="feu"></span>
+        <span id="vert" class="feu"></span>
+      </section>
 
+      <section class="horloge">
+        <div class="horloge-container">
+          <span id="heures"></span>
+          <span id="minutes"></span>
+          <span id="secondes"></span>
+        </div>
 
-        <section class="horloge">
-            <div class="horloge-container">
-                <span id="heures"></span>
-                <span id="minutes"></span>
-                <span id="secondes"></span>
-            </div>
+        <div class="alarm-container">
+          <div id="alarms"></div>
+          <input type="time" name="alarm" id="alarm-input" />
+          <button type="button" id="alarm-button">Définir une alarme</button>
+        </div>
+      </section>
 
-            <div class="alarm-container">
-                <div id="alarms"></div>
-                <input type="time" name="alarm" id="alarm-input">
-                <button type="button" id="alarm-button">Définir une alarme</button>
-            </div>
-        </section>
-
-        <section class="calculatrice">
-            <input type="text" name="premier-nombre" id="premier-nombre" placeholder="Premier nombre..">
-            <input type="text" name="deuxieme-nombre" id="deuxieme-nombre" placeholder="Deuxième nombre..">
-            <button type="button" id="mon-bouton">Calculer l'addition</button>
-            <span id="resultat"></span>
-        </section>
+      <section class="calculatrice">
+        <input
+          type="text"
+          name="premier-nombre"
+          id="premier-nombre"
+          placeholder="Premier nombre.."
+        />
+        <input
+          type="text"
+          name="deuxieme-nombre"
+          id="deuxieme-nombre"
+          placeholder="Deuxième nombre.."
+        />
+        <button type="button" id="mon-bouton">Calculer l'addition</button>
+        <span id="resultat"></span>
+      </section>
     </main>
     <script src="./sandbox.js"></script>
-</body>
+  </body>
 </html>

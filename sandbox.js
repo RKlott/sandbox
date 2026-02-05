@@ -1,3 +1,27 @@
+let modalButton = document.getElementById("modalButton");
+let closeModal = document.getElementById("closeModal");
+let myModal = document.getElementById("myModal");
+
+modalButton.addEventListener("click", () => {
+  myModal.style.display = "flex";
+});
+
+closeModal.addEventListener("click", () => {
+  myModal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => { //TODO: corriger le soucis ici, cette fonction empêche l'utilisation de la modale, sûrement le premier if statement qui fait défaut
+  if (e.target !== myModal) {
+    const computedStyle = getComputedStyle(myModal); 
+    if (computedStyle.display == "flex") {
+      myModal.style.display = "none";
+    } else {
+        return;
+    }
+  }
+});
+
+//? Feu tricolore
 let feuRouge = document.getElementById("rouge");
 let feuOrange = document.getElementById("orange");
 let feuVert = document.getElementById("vert");
@@ -8,31 +32,36 @@ function feuTricolore() {
   const delay = 1000;
 
   setTimeout(() => {
-    Array.from(feu).forEach((element, index) => {
-      setTimeout(
-        () => {
-          element.classList.add("brightness");
-        },
-        index * 2 * delay); //? calcul dans le temps pour créer un décalage progressif de l'ajout de la class brightness en fonction de la position dans l'array
+    Array.from(feu)
+      .reverse()
+      .forEach((element, index) => {
+        //ajout du reverse pour que ça commence au vert
+        setTimeout(
+          () => {
+            element.classList.add("brightness");
+          },
+          index * 2 * delay,
+        ); //? calcul dans le temps pour créer un décalage progressif de l'ajout de la class brightness en fonction de la position dans l'array
 
-      //ajout de la classe calculé
-      /* index 0: 0 x 2 = 0s
-       *  index 1: 1 x 2 = 2s
-       *  index 2: 2 x 2 = 4s
-       */
+        //ajout de la classe calculé
+        /* index 0: 0 x 2 = 0s
+         *  index 1: 1 x 2 = 2s
+         *  index 2: 2 x 2 = 4s
+         */
 
-      setTimeout(
-        () => {
-          element.classList.remove("brightness");
-        },
-        index * 2 * delay + delay);
+        setTimeout(
+          () => {
+            element.classList.remove("brightness");
+          },
+          index * 2 * delay + delay,
+        );
 
-      //retrait de la classe calculé
-      /* index 0: 0 x 2 = 0s + 1(delay) = 1s
-       *  index 1: 1 x 2 = 2s + 1(delay) = 3s
-       *  index 2: 2 x 2 = 4s + 1(delay) = 5s
-       */
-    });
+        //retrait de la classe calculé
+        /* index 0: 0 x 2 = 0s + 1(delay) = 1s
+         *  index 1: 1 x 2 = 2s + 1(delay) = 3s
+         *  index 2: 2 x 2 = 4s + 1(delay) = 5s
+         */
+      });
 
     feuTricolore();
   }, 6000); //On loop à la fin à 6 secondes pour recommencer un cycle dynamique
