@@ -4,10 +4,15 @@ main {
   gap: 3rem;
 
   .modal{
-    background-color: rgb(255, 144, 144);
+
     display: none;
     flex-direction: column;
-    margin: 0 auto;
+
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+
     .closeModal{
       align-self: flex-end;
       cursor: pointer;
@@ -18,7 +23,14 @@ main {
       background-color: rgb(226, 226, 226);
       display: flex;
       align-items: center;
+      align-self: center;
+      justify-self: center;
+      width: 50%;
       flex-direction: column;
+    }
+
+    &:active{
+      display: block;
     }
   }
 
