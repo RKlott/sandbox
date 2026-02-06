@@ -7,9 +7,11 @@ main .modal {
   background-color: rgb(255, 144, 144);
   display: none;
   flex-direction: column;
+  margin: 0 auto;
 }
 main .modal .closeModal {
   align-self: flex-end;
+  cursor: pointer;
   font-size: 38px;
 }
 main .modal .modal-container {

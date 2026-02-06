@@ -11,13 +11,9 @@ closeModal.addEventListener("click", () => {
 });
 
 window.addEventListener("click", (e) => { //TODO: corriger le soucis ici, cette fonction empêche l'utilisation de la modale, sûrement le premier if statement qui fait défaut
-  if (e.target !== myModal) {
-    const computedStyle = getComputedStyle(myModal); 
-    if (computedStyle.display == "flex") {
-      myModal.style.display = "none";
-    } else {
-        return;
-    }
+
+  if (e.target !== myModal) { //! problème, le site analyse qu'il as un display flex depuis le clique du bouton, donc le display none est immédiat
+      myModal.style.display = "none";                             //? Checker si c'est suffisant
   }
 });
 
@@ -32,10 +28,7 @@ function feuTricolore() {
   const delay = 1000;
 
   setTimeout(() => {
-    Array.from(feu)
-      .reverse()
-      .forEach((element, index) => {
-        //ajout du reverse pour que ça commence au vert
+    Array.from(feu).reverse().forEach((element, index) => {//ajout du reverse pour que ça commence au vert
         setTimeout(
           () => {
             element.classList.add("brightness");
