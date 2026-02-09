@@ -510,34 +510,34 @@ class Assassin extends heroClass {
   }
 }
 
-let joueurParDefaut = new Assassin();
-joueurParDefaut.getHeroName(); // "Unknown"
-joueurParDefaut.getHealth(); // 700 (500 + 200)
-joueurParDefaut.getStrengthRatio(); // 300 (50 + 250)
+let defaultPlayer = new Assassin();
+defaultPlayer.getHeroName();
+defaultPlayer.getHealth(); 
+defaultPlayer.getStrengthRatio(); 
 
 // Test classe Warrior avec nom uniquement
-let conan = new Warrior("Conan");
-conan.getHeroName(); // "Conan"
-conan.getHealth(); // 700
-conan.getStrengthRatio();
+let rowin = new Warrior("Rowin");
+rowin.getHeroName();
+rowin.getHealth();
+rowin.getStrengthRatio();
 
 // Test classe Tank avec nom uniquement
-let hercule = new Tank("Hercule");
-hercule.getHeroName(); // "Hercule"
-hercule.getHealth(); // 3700
-hercule.getStrengthRatio(); // 70
+let hephaistos = new Tank("Hephaistos");
+hephaistos.getHeroName();
+hephaistos.getHealth();
+hephaistos.getStrengthRatio();
 
 let eastin = new Mage("Eastin");
-eastin.getHeroName(); // "Hercule"
-eastin.getHealth(); // 3700
-eastin.getStrengthRatio(); // 70
+eastin.getHeroName();
+eastin.getHealth();
+eastin.getStrengthRatio();
 console.log(
   `Puissance magique de ${eastin.name} : ${eastin.getBasicPowerLevel()}`,
 );
 
 let excalin = new Weapon("Excalin", "L'arme Primordiale", 1500);
-hercule.equipWeapon(excalin);
-hercule.getAttackPower();
+hephaistos.equipWeapon(excalin);
+hephaistos.getAttackPower();
 excalin.getWeaponDesc();
 
 let fireBall = new Spell("Boule de feu", "Sort de boule de feu", 300);
