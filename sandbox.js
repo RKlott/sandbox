@@ -1,16 +1,24 @@
 //Exo 5
 class heroClass {
-  DEFAULT_POWER_LEVEL = 50;
-  DEFAULT_STRENGTH_RATIO = 50;
-  DEFAULT_HEALTH = 500;
-  DEFAULT_NAME = "Unknown";
+  static DEFAULT_POWER_LEVEL = 50;
+  static DEFAULT_STRENGTH_RATIO = 50;
+  static DEFAULT_HEALTH = 500;
+  static DEFAULT_NAME = "Unknown";
 
-  constructor() { //? Devrais-je laisser le constructeur vide ?
-    this.name = this.DEFAULT_NAME;
-    this.basicHealth = this.DEFAULT_HEALTH;
-
-    this.powerLevel = this.DEFAULT_POWER_LEVEL;
-    this.strengthRatio = this.DEFAULT_STRENGTH_RATIO;
+  constructor(
+    name = heroClass.DEFAULT_NAME,
+    health = heroClass.DEFAULT_HEALTH,
+    strength = heroClass.DEFAULT_STRENGTH_RATIO,
+    power = heroClass.DEFAULT_POWER_LEVEL,
+  ) {
+    //? Devrais-je laisser le constructeur vide ?
+    this.name = name;
+    this.basicHealth = health;
+    this.strengthRatio = strength;
+    this.powerLevel = power;
+    this.weapon = null; //arme par défaut nulle, le héro n'en n'a pas tant qu'on en équipe pas
+    this.spells = []; //tableau vide qui contiendra le(s) sort(s) du héro
+    this.spellsList = []; //tableau vide qui contiendra le(s) nom(s) du/des sort(s) du héro
   }
 
   //?Getters
@@ -33,6 +41,83 @@ class heroClass {
 
   //?Setters pour les héros
 
+  equipWeapon(newWeapon) {
+    if (!newWeapon) {
+      //On vérifie si l'arme existe
+      console.log("Erreur : l'arme entrée n'existe pas.");
+      return;
+    }
+
+    if (!(newWeapon instanceof Weapon)) {
+      //Si l'arme existe, on vérifie qu'elle est bien un objet de la classe Weapon
+      console.error(
+        "Erreur : Cette instance n'est pas classifiée comme étant une arme.",
+      );
+      return;
+    }
+
+    //Si tout est bon, la logique primaire est exécutée
+    this.weapon = newWeapon;
+    console.log(`${this.name} s'équipe de : ${newWeapon.weaponName}`);
+  }
+
+  getAttackPower() {
+    let totalPower = this.strengthRatio;
+    if (this.weapon) {
+      totalPower += this.weapon.damage;
+    }
+    console.log(
+      `Puissance d'attaque de ${this.name} : ${this.strengthRatio}. Puissance d'attaque combinée avec son équipement : ${totalPower}.`,
+    );
+
+    return totalPower;
+  }
+
+  learnSpell(newSpell) {
+    if (!newSpell) {
+      console.log("Erreur : le sort n'existe pas.");
+      return;
+    }
+
+    if (!(newSpell instanceof Spell)) {
+      console.error(
+        "Erreur : Cette instance n'est pas classifiée comme étant un sort.",
+      );
+    }
+
+    this.spells.push(newSpell);
+    console.log(
+      `${this.name} viens d'apprendre le sort : ${newSpell.spellName}.`,
+    );
+  }
+
+  getMagicalPower() {
+    let magicPower = this.powerLevel;
+    if (this.spells !== undefined || this.spells.length !== 0) {
+      this.spells.forEach((e) => {
+        magicPower += e.getSpellMagicalLevel();
+      });
+    }
+    console.log(
+      `Puissance magique de ${this.name} : ${this.powerLevel}. Puissance magique combinée avec ses sorts : ${magicPower}`,
+    );
+  }
+
+  getSpells() {
+    if (this.spells !== undefined || this.spells.length !== 0) {
+      for (let i = 0; i < this.spells.length; i++) {
+        //On itère dans l'entièreté du tableau des sorts
+        const element = this.spells[i]; //On récupère l'élément sur lequel le tableau est à l'instant T
+        this.spellsList.push(element.getSpellName()); //On ajoute à notre tableau vide précisément le nom de chaque sort du tableau des sorts
+      }
+      console.log(
+        `Liste des sorts de ${this.name} : ${this.spellsList.join(", ")}`,
+      ); //On affiche le contenu de notre nouveau tableau contenant uniquement les noms de nos sorts
+    } else {
+      console.error("Le tableau est vide, il ne contient aucun sort.");
+    }
+  }
+
   setPowerLevel(arg) {
     this.powerLevel = arg;
     return;
@@ -48,68 +133,70 @@ class heroClass {
     return;
   }
 
-  rename(arg1, arg2) {
-    arg1 = arg2;
-    return;
+  rename(newName) {
+    this.name = newName;
   }
 }
 
-class weaponClass extends heroClass {
-  constructor(holderName, weaponName, weaponDesc, powerLevel = this.getBasicPowerLevel()) {
-    this.holderName = holderName;
-    this.powerLevel = powerLevel;
+class Weapon {
+  constructor(
+    weaponName = "Arme Inconnue",
+    weaponDesc = "Description mystère.. l'arme n'est pas reconnue",
+    damage = 10,
+  ) {
     this.weaponName = weaponName;
     this.weaponDesc = weaponDesc;
+    this.damage = damage;
   }
 
   //? Getters
 
   getWeaponName() {
+    console.log(`${this.weaponName}.`);
     return this.weaponName;
   }
 
   getWeaponDesc() {
+    console.log(`${this.weaponName}, ${this.weaponDesc}.`);
     return this.weaponDesc;
   }
 
-  getWeaponPowerLevel() {
-    return this.powerLevel;
-  }
-
-  getHolderName() {
-    return this.holderName;
+  getWeaponDamage() {
+    console.log(`Dégâts d'attaque de "${this.name}" : ${this.damage}`);
+    return this.damage;
   }
 
   //? Setters
 
   renameThisWeapon(arg) {
+    console.log(`L'arme "${this.weaponName}" a été renommé en "${arg}"`);
     this.weaponName = arg;
   }
 
   setWeaponDesc(arg) {
+    console.log(
+      `La description de l'arme "${this.weaponName}" a été modifiée.`,
+    );
     this.weaponDesc = arg;
   }
 
-  setWeaponPowerLevel(arg) {
-    this.powerLevel = arg;
-  }
-
-  setHolderName(arg) {
-    this.holderName = arg;
+  setWeaponDamage(arg) {
+    console.log(
+      `Les dégâts de l'arme ${this.weaponName} sont passés de ${this.damage} à ${arg}.`,
+    );
+    this.damage = arg;
   }
 }
 
-class spellClass extends heroClass {
+class Spell {
   constructor(
-    holderName,
-    spellName,
-    spellDesc,
-    powerLevel = this.getBasicPowerLevel(),
+    spellName = "Sort Inconnu",
+    spellDesc = "Description mystère.. le sort n'est pas reconnu",
+    magicalPower = 5,
   ) {
-    this.holderName = holderName;
-    this.powerLevel = powerLevel;
     this.spellName = spellName;
     this.spellDesc = spellDesc;
+    this.magicalPower = magicalPower;
   }
 
   //? Getters
@@ -119,15 +206,13 @@ class spellClass extends heroClass {
   }
 
   getSpellDesc() {
+    console.log(this.spellDesc);
+
     return this.spellDesc;
   }
 
-  getSpellPowerLevel() {
-    return this.powerLevel;
-  }
-
-  getHolderName() {
-    return this.holderName;
+  getSpellMagicalLevel() {
+    return this.magicalPower;
   }
   //? Setters
 
@@ -139,49 +224,330 @@ class spellClass extends heroClass {
     this.spellDesc = arg;
   }
 
-  setSpellPowerLevel(arg) {
-    this.powerLevel = arg;
-  }
-
-  setHolderName(arg) {
-    this.holderName = arg;
+  setSpellMagicalPower(arg) {
+    this.magicalPower = arg;
   }
 }
 
 ///* combatClass
 class Warrior extends heroClass {
-  constructor(holderName, basicHealth, strengthRatio) {
-    super(holderName, basicHealth, strengthRatio);
+  static WARRIOR_BONUS_HEALTH = 200;
+  static WARRIOR_BONUS_STRENGTH = 250;
+
+  /* Utilisation de variable statique pour éviter d'utiliser "this" dans le constructeur (qu'il ne reconnait jamais puisque "super" n'est jamais appelé avant)
+   * pas la peine d'initialiser à nouveau les variables passé en constructeur (this.name = name..) puisque le parent (heroClass) le fait déjà, il suffit de passer les variables au "super"
+   *le "super" DONNE les éléments customs de la classe Warrior au parent (heroClass) pour que le parent construise la logique de base (là où se situe les this.name = name..)
+   *puis renvois les éléments à l'enfant (ex: class Warrior) pour que lui continue à rajouter ses valeurs personnelles
+   *l'utilisation des variables statiques permettent d'effectuer les calculs dynamiques avec les éléments stockés aussi bien dans le parent que dans l'enfant sans utiliser "this" dans le constructeur
+   */
+
+  constructor(
+    name = heroClass.DEFAULT_NAME,
+    basicHealth = heroClass.DEFAULT_HEALTH + Warrior.WARRIOR_BONUS_HEALTH,
+    strengthRatio = heroClass.DEFAULT_STRENGTH_RATIO +
+      Warrior.WARRIOR_BONUS_STRENGTH,
+  ) {
+    super(name, basicHealth, strengthRatio);
+    this.title = "Guerrier";
   }
 
-  warriorBonusHealth = 200;
-  warriorBonusStrengthRatio = 250;
-  title = "Guerrier";
-
   getHeroName() {
-    return this.getName();
+    console.log(`Le nom du personnage est : "${this.name}"`);
+    return this.name;
   }
 
   getHealth() {
-    return this.getBasicHealth() + this.warriorBonusHealth;
+    console.log(
+      `[${this.title}: ${this.name}] Points de vies : ${this.basicHealth}`,
+    );
+    return this.basicHealth;
   }
 
   getStrengthRatio() {
-    return this.getBasicStrengthRatio() + this.warriorBonusStrengthRatio;
+    console.log(
+      `[${this.title}: ${this.name}] Points de forces : ${this.strengthRatio}`,
+    );
+    return this.strengthRatio;
   }
 
   getTitle() {
+    console.log(`Titre de ${this.name}: [${this.title}]`);
     return this.title;
+  }
+
+  //? Setters
+
+  setHeroName(arg) {
+    this.name = arg;
+    console.log(
+      `Le nom du [${this.title}] à été défini comme étant désormais : ${this.name}`,
+    );
+  }
+
+  setHealth(arg) {
+    this.basicHealth = this.basicHealth + arg;
+    console.log(
+      `[${this.title}] [${this.name}] La valeur de base des points de vies à été additionné avec votre valeur custom. les points de vies sont maintenant de : ${this.basicHealth}`,
+    );
+  }
+
+  setStrengthRatio(arg) {
+    this.strengthRatio = this.strengthRatio + arg;
+    console.log(
+      `[${this.title}] [${this.name}] La valeur de base des points de forces à été additionné avec votre valeur custom. les points de forces sont maintenant de : ${this.strengthRatio}`,
+    );
+    return this.strengthRatio;
+  }
+}
+
+class Tank extends heroClass {
+  static TANK_BONUS_HEALTH = 3500;
+  static TANK_BONUS_STRENGTH = 20;
+
+  /* Utilisation de variable statique pour éviter d'utiliser "this" dans le constructeur (qu'il ne reconnait jamais puisque "super" n'est jamais appelé avant)
+   * pas la peine d'initialiser à nouveau les variables passé en constructeur (this.name = name..) puisque le parent (heroClass) le fait déjà, il suffit de passer les variables au "super"
+   *le "super" DONNE les éléments customs de la classe Warrior au parent (heroClass) pour que le parent construise la logique de base (là où se situe les this.name = name..)
+   *puis renvois les éléments à l'enfant (ex: class Tank) pour que lui continue à rajouter ses valeurs personnelles
+   *l'utilisation des variables statiques permettent d'effectuer les calculs dynamiques avec les éléments stockés aussi bien dans le parent que dans l'enfant sans utiliser "this" dans le constructeur
+   */
+
+  constructor(
+    name = heroClass.DEFAULT_NAME,
+    basicHealth = heroClass.DEFAULT_HEALTH + Tank.TANK_BONUS_HEALTH,
+    strengthRatio = heroClass.DEFAULT_STRENGTH_RATIO + Tank.TANK_BONUS_STRENGTH,
+  ) {
+    super(name, basicHealth, strengthRatio);
+    this.title = "Tank";
+  }
+
+  getHeroName() {
+    console.log(`Le nom du personnage est : "${this.name}"`);
+    return this.name;
+  }
+
+  getHealth() {
+    console.log(
+      `[${this.title}: ${this.name}] Points de vies : ${this.basicHealth}`,
+    );
+    return this.basicHealth;
+  }
+
+  getStrengthRatio() {
+    console.log(
+      `[${this.title}: ${this.name}] Points de forces : ${this.strengthRatio}`,
+    );
+    return this.strengthRatio;
+  }
+
+  getTitle() {
+    console.log(`Titre de ${this.name}: [${this.title}]`);
+    return this.title;
+  }
+
+  //? Setters
+
+  setHeroName(arg) {
+    this.name = arg;
+    console.log(
+      `Le nom du [${this.title}] à été défini comme étant désormais : ${this.name}`,
+    );
+  }
+
+  setHealth(arg) {
+    this.basicHealth = this.basicHealth + arg;
+    console.log(
+      `[${this.title}] [${this.name}] La valeur de base des points de vies à été additionné avec votre valeur custom. les points de vies sont maintenant de : ${this.basicHealth}`,
+    );
+  }
+
+  setStrengthRatio(arg) {
+    this.strengthRatio = this.strengthRatio + arg;
+    console.log(
+      `[${this.title}] [${this.name}] La valeur de base des points de forces à été additionné avec votre valeur custom. les points de forces sont maintenant de : ${this.strengthRatio}`,
+    );
+    return this.strengthRatio;
   }
 }
 
 class Mage extends heroClass {
-  constructor(holderName, basicHealth) {
-    super(holderName, basicHealth);
+  static MAGE_BONUS_HEALTH = 400;
+  static MAGE_BONUS_STRENGTH = 50;
+  static MAGE_BONUS_POWER_LEVEL = 500;
+
+  /* Utilisation de variable statique pour éviter d'utiliser "this" dans le constructeur (qu'il ne reconnait jamais puisque "super" n'est jamais appelé avant)
+   * pas la peine d'initialiser à nouveau les variables passé en constructeur (this.name = name..) puisque le parent (heroClass) le fait déjà, il suffit de passer les variables au "super"
+   *le "super" DONNE les éléments customs de la classe Warrior au parent (heroClass) pour que le parent construise la logique de base (là où se situe les this.name = name..)
+   *puis renvois les éléments à l'enfant (ex: class Tank) pour que lui continue à rajouter ses valeurs personnelles
+   *l'utilisation des variables statiques permettent d'effectuer les calculs dynamiques avec les éléments stockés aussi bien dans le parent que dans l'enfant sans utiliser "this" dans le constructeur
+   */
+
+  constructor(
+    name = heroClass.DEFAULT_NAME,
+    basicHealth = heroClass.DEFAULT_HEALTH + Mage.MAGE_BONUS_HEALTH,
+    strengthRatio = heroClass.DEFAULT_STRENGTH_RATIO + Mage.MAGE_BONUS_STRENGTH,
+    powerLevel = heroClass.DEFAULT_POWER_LEVEL + Mage.MAGE_BONUS_POWER_LEVEL,
+  ) {
+    super(name, basicHealth, strengthRatio, powerLevel);
+    this.title = "Mage";
   }
 
-  strengthRatio = 50;
+  getHeroName() {
+    console.log(`Le nom du personnage est : "${this.name}"`);
+    return this.name;
+  }
+
+  getHealth() {
+    console.log(
+      `[${this.title}: ${this.name}] Points de vies : ${this.basicHealth}`,
+    );
+    return this.basicHealth;
+  }
+
+  getStrengthRatio() {
+    console.log(
+      `[${this.title}: ${this.name}] Points de forces : ${this.strengthRatio}`,
+    );
+    return this.strengthRatio;
+  }
+
+  getTitle() {
+    console.log(`Titre de ${this.name}: [${this.title}]`);
+    return this.title;
+  }
+
+  //? Setters
+
+  setHeroName(arg) {
+    this.name = arg;
+    console.log(
+      `Le nom du [${this.title}] à été défini comme étant désormais : ${this.name}`,
+    );
+  }
+
+  setHealth(arg) {
+    this.basicHealth = this.basicHealth + arg;
+    console.log(
+      `[${this.title}] [${this.name}] La valeur de base des points de vies à été additionné avec votre valeur custom. les points de vies sont maintenant de : ${this.basicHealth}`,
+    );
+  }
+
+  setStrengthRatio(arg) {
+    this.strengthRatio = this.strengthRatio + arg;
+    console.log(
+      `[${this.title}] [${this.name}] La valeur de base des points de forces à été additionné avec votre valeur custom. les points de forces sont maintenant de : ${this.strengthRatio}`,
+    );
+    return this.strengthRatio;
+  }
 }
+
+class Assassin extends heroClass {
+  static ASSASSIN_BONUS_HEALTH = 100;
+  static ASSASSIN_BONUS_STRENGTH = 920;
+
+  /* Utilisation de variable statique pour éviter d'utiliser "this" dans le constructeur (qu'il ne reconnait jamais puisque "super" n'est jamais appelé avant)
+   * pas la peine d'initialiser à nouveau les variables passé en constructeur (this.name = name..) puisque le parent (heroClass) le fait déjà, il suffit de passer les variables au "super"
+   *le "super" DONNE les éléments customs de la classe Warrior au parent (heroClass) pour que le parent construise la logique de base (là où se situe les this.name = name..)
+   *puis renvois les éléments à l'enfant (ex: class Tank) pour que lui continue à rajouter ses valeurs personnelles
+   *l'utilisation des variables statiques permettent d'effectuer les calculs dynamiques avec les éléments stockés aussi bien dans le parent que dans l'enfant sans utiliser "this" dans le constructeur
+   */
+
+  constructor(
+    name = heroClass.DEFAULT_NAME,
+    basicHealth = heroClass.DEFAULT_HEALTH + Assassin.ASSASSIN_BONUS_HEALTH,
+    strengthRatio = heroClass.DEFAULT_STRENGTH_RATIO +
+      Assassin.ASSASSIN_BONUS_STRENGTH,
+  ) {
+    super(name, basicHealth, strengthRatio);
+    this.title = "Assassin";
+  }
+
+  getHeroName() {
+    console.log(`Le nom du personnage est : "${this.name}"`);
+    return this.name;
+  }
+
+  getHealth() {
+    console.log(
+      `[${this.title}: ${this.name}] Points de vies : ${this.basicHealth}`,
+    );
+    return this.basicHealth;
+  }
+
+  getStrengthRatio() {
+    console.log(
+      `[${this.title}: ${this.name}] Points de forces : ${this.strengthRatio}`,
+    );
+    return this.strengthRatio;
+  }
+
+  getTitle() {
+    console.log(`Titre de ${this.name}: [${this.title}]`);
+    return this.title;
+  }
+
+  //? Setters
+
+  setHeroName(arg) {
+    this.name = arg;
+    console.log(
+      `Le nom du [${this.title}] à été défini comme étant désormais : ${this.name}`,
+    );
+  }
+
+  setHealth(arg) {
+    this.basicHealth = this.basicHealth + arg;
+    console.log(
+      `[${this.title}] [${this.name}] La valeur de base des points de vies à été additionné avec votre valeur custom. les points de vies sont maintenant de : ${this.basicHealth}`,
+    );
+  }
+
+  setStrengthRatio(arg) {
+    this.strengthRatio = this.strengthRatio + arg;
+    console.log(
+      `[${this.title}] [${this.name}] La valeur de base des points de forces à été additionné avec votre valeur custom. les points de forces sont maintenant de : ${this.strengthRatio}`,
+    );
+    return this.strengthRatio;
+  }
+}
+
+let joueurParDefaut = new Assassin();
+joueurParDefaut.getHeroName(); // "Unknown"
+joueurParDefaut.getHealth(); // 700 (500 + 200)
+joueurParDefaut.getStrengthRatio(); // 300 (50 + 250)
+
+// Test classe Warrior avec nom uniquement
+let conan = new Warrior("Conan");
+conan.getHeroName(); // "Conan"
+conan.getHealth(); // 700
+conan.getStrengthRatio();
+
+// Test classe Tank avec nom uniquement
+let hercule = new Tank("Hercule");
+hercule.getHeroName(); // "Hercule"
+hercule.getHealth(); // 3700
+hercule.getStrengthRatio(); // 70
+
+let eastin = new Mage("Eastin");
+eastin.getHeroName(); // "Hercule"
+eastin.getHealth(); // 3700
+eastin.getStrengthRatio(); // 70
+console.log(
+  `Puissance magique de ${eastin.name} : ${eastin.getBasicPowerLevel()}`,
+);
+
+let excalin = new Weapon("Excalin", "L'arme Primordiale", 1500);
+hercule.equipWeapon(excalin);
+hercule.getAttackPower();
+excalin.getWeaponDesc();
+
+let fireBall = new Spell("Boule de feu", "Sort de boule de feu", 300);
+eastin.learnSpell(fireBall);
+
+let iceBall = new Spell("Boule de glace", "Sort de boule de glace", 200);
+eastin.learnSpell(iceBall);
+eastin.getMagicalPower();
+eastin.getSpells();
+
 //////////////////////////////////////////////////////////////////////
 //Exo 4
 let tableauChiffres = [2, 4, 3, 8, 10];
