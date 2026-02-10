@@ -1,3 +1,15 @@
+let age = 17;
+
+let access = age >= 18 ? "autorisé" : "refusé";
+
+console.log(access);
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 //Exo 5
 class heroClass {
   static DEFAULT_POWER_LEVEL = 50;
@@ -377,7 +389,7 @@ class Mage extends heroClass {
   /* Utilisation de variable statique pour éviter d'utiliser "this" dans le constructeur (qu'il ne reconnait jamais puisque "super" n'est jamais appelé avant)
    * pas la peine d'initialiser à nouveau les variables passé en constructeur (this.name = name..) puisque le parent (heroClass) le fait déjà, il suffit de passer les variables au "super"
    *le "super" DONNE les éléments customs de la classe Warrior au parent (heroClass) pour que le parent construise la logique de base (là où se situe les this.name = name..)
-   *puis renvois les éléments à l'enfant (ex: class Tank) pour que lui continue à rajouter ses valeurs personnelles
+   *puis renvois les éléments à l'enfant (ex: class Mage) pour que lui continue à rajouter ses valeurs personnelles
    *l'utilisation des variables statiques permettent d'effectuer les calculs dynamiques avec les éléments stockés aussi bien dans le parent que dans l'enfant sans utiliser "this" dans le constructeur
    */
 
@@ -548,7 +560,12 @@ eastin.learnSpell(iceBall);
 eastin.getMagicalPower();
 eastin.getSpells();
 
+
 //////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
 //Exo 4
 let tableauChiffres = [2, 4, 3, 8, 10];
 
