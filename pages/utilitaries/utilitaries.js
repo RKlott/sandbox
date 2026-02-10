@@ -47,10 +47,46 @@ askNoteButton.addEventListener("click", () => {
     askNoteResult.innerHTML = "Résultat : "+ stringResult;
 });
 
-//////
+////// Exo 5
 
 const numbersArray = [-1, -3, 6, 0, 2, 0, -7];
 let modifiedArray = [];
 
- modifiedArray = numbersArray.map((x) => x < 0 ? modifiedArray.push("-") : (x) > 0 ? modifiedArray.push("+") : modifiedArray.push(0));
-console.log([modifiedArray]);
+ modifiedArray = numbersArray.map((x) => x < 0 ? "-" : (x) > 0 ? "+" : 0);
+console.log(modifiedArray);
+
+/// Exo 6 non necessaire ici
+const pairArray = numbersArray.filter((x) => x % 2 === 0 ? true : false);
+console.log("pairArray: "+pairArray);
+
+/// Exo 7 non necessaire ici
+
+const longWords = ["longtemps", "ok", "treslongtemps", "sale", "wow"];
+const filtredWords = longWords.filter((x) => x.length >= 5 ? true : false);
+console.log("filtredWords: " + filtredWords);
+
+/// Exo 8 non necessaire ici
+
+let personnes = [
+    {nom: "Alice", age: 22},
+    {nom: "Bob", age: 17},
+    {nom: "Charlie", age: 30}
+];
+
+const filteredPersonnes = personnes.filter((x) => x.age >= 18 ? true : false).map(y => y.nom);
+console.log("personnes majeures filtrées: " + filteredPersonnes.join(", "));
+
+/// Exo 9 
+
+let tableauDeNombre = [2, 4, 76, 2];
+
+const resultAcc = tableauDeNombre.reduce((acc, obj) => acc + obj);
+
+console.log("Résultat du calcul :" + resultAcc);
+
+/// Exo 10
+
+
+
+
+
